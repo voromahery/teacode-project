@@ -10,11 +10,11 @@ const filterNames = (e) => {
 }
 
 return (
-    <>
-    <header>
-        <h2>Contact</h2>
+    <div>
+    <header style={{backgroundColor: 'blue', textAlign: 'center'}}>
+        <h2 style={{color: 'white', margin: '0',padding: '16px'}}>Contact</h2>
     </header>
-        <input type="text" value={inputValue} onChange={filterNames} name='filter-user'/>
-    </>
+        <input style={{padding: "16px", width: '-webkit-fill-available'}} type="text" value={inputValue} onChange={filterNames} name='filter-user'/>
+    </div>
 )
 } 

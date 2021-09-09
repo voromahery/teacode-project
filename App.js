@@ -4,7 +4,7 @@ import {ListOfUser}  from './ListOfUser';
 
 function App() {
   return (
-    <div>
+    <div style={{backgroundColor: 'grey'}}>
       <Header/>
   <ListOfUser/>
     </div>

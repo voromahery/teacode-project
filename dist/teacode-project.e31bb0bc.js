@@ -28363,7 +28363,22 @@ const Header = () => {
     setAllData(filterData);
   };
 
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement("h2", null, "Contact")), /*#__PURE__*/_react.default.createElement("input", {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("header", {
+    style: {
+      backgroundColor: 'blue',
+      textAlign: 'center'
+    }
+  }, /*#__PURE__*/_react.default.createElement("h2", {
+    style: {
+      color: 'white',
+      margin: '0',
+      padding: '16px'
+    }
+  }, "Contact")), /*#__PURE__*/_react.default.createElement("input", {
+    style: {
+      padding: "16px",
+      width: '-webkit-fill-available'
+    },
     type: "text",
     value: inputValue,
     onChange: filterNames,
@@ -28394,11 +28409,42 @@ const ListOfUser = () => {
   const {
     allData
   } = (0, _react.useContext)(_GlobalContext.default);
-  return /*#__PURE__*/_react.default.createElement("ul", null, allData.map(item => /*#__PURE__*/_react.default.createElement("li", {
+  let isClicked = [];
+
+  const clickUser = id => {
+    const clicked = allData.find(user => user.id === id);
+
+    if (isClicked.some(item => item === id)) {
+      const filterId = isClicked.filter(item => item !== id);
+      console.log(filterId);
+    } else {
+      isClicked.push(clicked.id);
+      console.log(isClicked);
+    }
+  };
+
+  return /*#__PURE__*/_react.default.createElement("ul", {
+    style: {
+      listStyle: 'none',
+      border: 'solid 0.5px #00000',
+      padding: '0'
+    }
+  }, allData.sort((a, b) => a.last_name.localeCompare(b.last_name)).map(item => /*#__PURE__*/_react.default.createElement("li", {
+    style: {
+      display: "flex",
+      alignItems: 'center',
+      width: '100%',
+      padding: '16px',
+      paddingLeft: '0'
+    },
     key: item.id
   }, /*#__PURE__*/_react.default.createElement("img", {
     src: item.avatar
-  }), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, item.first_name, " ", item.last_name), /*#__PURE__*/_react.default.createElement("span", null, item.email)))));
+  }), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, item.first_name, " ", item.last_name), /*#__PURE__*/_react.default.createElement("span", null, item.email)), /*#__PURE__*/_react.default.createElement("input", {
+    type: "checkbox",
+    onChange: () => clickUser(item.id),
+    id: item.id
+  }))));
 };
 
 exports.ListOfUser = ListOfUser;
@@ -28419,7 +28465,11 @@ var _ListOfUser = require("./ListOfUser");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function App() {
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Header.Header, null), /*#__PURE__*/_react.default.createElement(_ListOfUser.ListOfUser, null));
+  return /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      backgroundColor: 'grey'
+    }
+  }, /*#__PURE__*/_react.default.createElement(_Header.Header, null), /*#__PURE__*/_react.default.createElement(_ListOfUser.ListOfUser, null));
 }
 
 var _default = App;
@@ -28466,7 +28516,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64797" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42055" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
