@@ -28307,7 +28307,6 @@ const GlobalContext = ({
   const endpoint = `https://teacode-recruitment-challenge.s3.eu-central-1.amazonaws.com/users.json`;
   const [allData, setAllData] = (0, _react.useState)([]);
   const [inputValue, setInputValue] = (0, _react.useState)('');
-  const copyOfData = [...allData];
 
   const fetchData = async () => {
     const response = await fetch(endpoint);
@@ -28323,7 +28322,8 @@ const GlobalContext = ({
       allData,
       setAllData,
       inputValue,
-      setInputValue
+      setInputValue,
+      fetchData
     }
   }, children);
 };
@@ -28354,18 +28354,24 @@ const Header = () => {
     inputValue,
     setInputValue,
     allData,
-    setAllData
+    setAllData,
+    fetchData
   } = (0, _react.useContext)(_GlobalContext.default);
 
   const filterNames = e => {
     setInputValue(e.target.value);
-    const filterData = [...allData].filter(user => user.first_name.includes(e.target.value) || user.last_name.includes(e.target.value));
-    setAllData(filterData);
+
+    if (inputValue.length !== 0) {
+      const filterData = [...allData].filter(user => user.first_name.includes(e.target.value) || user.last_name.includes(e.target.value));
+      setAllData(filterData);
+    } else {
+      fetchData();
+    }
   };
 
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("header", {
     style: {
-      backgroundColor: 'blue',
+      backgroundColor: '#16b2b9',
       textAlign: 'center'
     }
   }, /*#__PURE__*/_react.default.createElement("h2", {
@@ -28416,10 +28422,10 @@ const ListOfUser = () => {
 
     if (isClicked.some(item => item === id)) {
       const filterId = isClicked.filter(item => item !== id);
-      console.log([...filterId], isClicked.some(item => item === id));
+      return [...filterId];
     } else {
       isClicked.push(clicked.id);
-      console.log(isClicked);
+      return [...isClicked];
     }
   };
 
@@ -28427,7 +28433,8 @@ const ListOfUser = () => {
     style: {
       listStyle: 'none',
       border: 'solid 0.5px #00000',
-      padding: '0'
+      padding: '0',
+      margin: "0"
     }
   }, allData.sort((a, b) => a.last_name.localeCompare(b.last_name)).map(item => /*#__PURE__*/_react.default.createElement("li", {
     key: item.id
@@ -28453,7 +28460,9 @@ const ListOfUser = () => {
     style: {
       display: 'none'
     },
-    onChange: () => clickUser(item.id),
+    onChange: () => {
+      console.log(clickUser(item.id));
+    },
     id: item.id
   })))));
 };
