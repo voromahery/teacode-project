@@ -28416,7 +28416,7 @@ const ListOfUser = () => {
 
     if (isClicked.some(item => item === id)) {
       const filterId = isClicked.filter(item => item !== id);
-      console.log(filterId);
+      console.log([...filterId], isClicked.some(item => item === id));
     } else {
       isClicked.push(clicked.id);
       console.log(isClicked);
@@ -28430,21 +28430,32 @@ const ListOfUser = () => {
       padding: '0'
     }
   }, allData.sort((a, b) => a.last_name.localeCompare(b.last_name)).map(item => /*#__PURE__*/_react.default.createElement("li", {
+    key: item.id
+  }, /*#__PURE__*/_react.default.createElement("label", {
+    htmlFor: item.id,
     style: {
       display: "flex",
       alignItems: 'center',
       width: '100%',
-      padding: '16px',
-      paddingLeft: '0'
+      paddingLeft: '0',
+      borderBottom: '0.25px solid #000000',
+      borderTop: '0.25px solid #000000'
     },
     key: item.id
   }, /*#__PURE__*/_react.default.createElement("img", {
     src: item.avatar
-  }), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, item.first_name, " ", item.last_name), /*#__PURE__*/_react.default.createElement("span", null, item.email)), /*#__PURE__*/_react.default.createElement("input", {
+  }), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, item.first_name, " ", item.last_name), /*#__PURE__*/_react.default.createElement("span", {
+    style: {
+      overflowWrap: "anywhere"
+    }
+  }, item.email)), /*#__PURE__*/_react.default.createElement("input", {
     type: "checkbox",
+    style: {
+      display: 'none'
+    },
     onChange: () => clickUser(item.id),
     id: item.id
-  }))));
+  })))));
 };
 
 exports.ListOfUser = ListOfUser;
@@ -28516,7 +28527,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42055" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33737" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
